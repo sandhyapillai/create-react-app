@@ -1,0 +1,33 @@
+.chart-container{
+	height:150px;
+	position:relative;
+}
+
+.bullet{
+	font-size:14px;
+}
+
+.bullet .bar.s0 { fill: #eee; }
+.bullet .bar.s1 { fill: #ddd; }
+.bullet .bar.s2 { fill: #ccc; }
+
+.bullet .bar.measure{
+	 fill:#000;
+	 animation-name: example;
+     animation-duration: 1s;
+}
+.bullet .sub-title{
+  font-size:10px;
+
+}
+.bullet .tick{
+	stroke:#666;
+	stroke-width:.5px;
+}
+.bullet .tick-label{
+ font-size:12px;
+}
+.bullet .marker{
+	stroke:#666;
+	stroke-width:3px;
+}
