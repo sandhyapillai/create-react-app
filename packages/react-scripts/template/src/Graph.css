@@ -7,9 +7,9 @@
 	font-size:14px;
 }
 
-.bullet .bar.s0 { fill: #eee; }
-.bullet .bar.s1 { fill: #ddd; }
-.bullet .bar.s2 { fill: #ccc; }
+.bullet .bar.s0 { fill: #DCDCDC; }
+.bullet .bar.s1 { fill: #BABABA; }
+.bullet .bar.s2 { fill: #989898; }
 
 .bullet .bar.measure{
 	 fill:#000;
@@ -26,7 +26,7 @@
 
 }
 .bullet .tick{
-	stroke:#666;
+	stroke:#000;
 	stroke-width:.5px;
 }
 .bullet .tick-label{
