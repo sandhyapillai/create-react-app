@@ -1,5 +1,5 @@
 [{
-"title":"Revenue 2016",
+"title":"Revenue 2016 YTD",
 "subtitle":"(U.S $ in thousands)",
 "ticks":5,
 "ranges":[200,300,250],
@@ -7,18 +7,18 @@
 "target":270
 },
 {
-  "title":"Revenue 2015",
-  "subtitle":"(U.S $ in thousands)",
+  "title":"Profit",
+  "subtitle":"%",
   "ticks":5,
-  "ranges":[200,250,300],
-  "measure":220,
-  "target":270
+  "ranges":[2000,2500,3000],
+  "measure":2200,
+  "target":2700
   },
 {
-  "title":"Revenue 2014",
-  "subtitle":"(U.S $ in thousands)",
-  "ticks":5,
-  "ranges":[30,25,20],
-  "measure":22,
-  "target":27
+  "title":"Rating",
+  "subtitle":"out of 5",
+  "ticks":10,
+  "ranges":[3.5,4.4,5.0],
+  "measure":3.2,
+  "target":4.1
   }]

@@ -20,10 +20,15 @@
    -webkit-animation-duration: 1s;
 
 }
-
+.bullet .title{
+	font-weight:bold;
+	font-size:14px;
+}
+.bullet .title, .bullet .sub-title{
+	text-anchor:end;
+}
 .bullet .sub-title{
   font-size:10px;
-
 }
 .bullet .tick{
 	stroke:#000;

@@ -5,14 +5,16 @@ import '../Graph.css';
 class TickElement extends Component{
     render(){
         var ticks =[],
-            tickInterval = Math.floor(this.props.max/this.props.ticks), //Calculate the tickInterval based on width of graph.
+            tickInterval = (this.props.max/this.props.ticks), //Calculate the tickInterval based on width of graph.
             tickIncrementer=0,
             counter=0;
         while(counter <= this.props.ticks){
             ticks.push(tickIncrementer); // Gather the array of x-axis ticks on graph
             tickIncrementer += tickInterval;
+
             counter++;
         }
+
         //Get the x positions of the ticks based on the graph scale
         let newTicks = ticks.map(function(value){
            return value/this.props.scale
@@ -36,8 +38,8 @@ class MeasureElement extends Component{
     componentDidMount(){
       //Animate the measure bar(inner rectangle)
       let keyframes=`@-webkit-keyframes example{
-          from {width: 0px}
-          to {width: ${this.props.measure/this.props.scale}px}
+          from {width: 0}
+          to {width: ${this.props.measure/this.props.scale}}
       }`,
 
       styleSheet = document.styleSheets[0];
@@ -77,9 +79,9 @@ class TargetElement extends Component{
 class Title extends Component{
     render(){
         return(
-                <g transform="translate(-100 20)">
+                <g transform={"translate(-6 "+(this.props.height/2)+")"}>
                     <text className="title" >{this.props.titleText}</text>
-                    <text className="sub-title" dy="1em">{this.props.subTitle}</text>
+                    <text className="sub-title" dy="1.5em">{this.props.subTitle}</text>
                 </g>
              )
     }
@@ -170,10 +172,11 @@ export default class Graph extends Component{
              return (
                <div className="chart-container" key={'chart'+i} >
                    <svg style={{width:this.actualWidth+'px'}} className="bullet">
-                     <g transform="translate(120 0)" >
+                     <g transform={"translate("+this.props.marginLeft+" 0)"} >
                       <Title
                            titleText={val["title"]}
-                           subTitle={val["subtitle"]} />
+                           subTitle={val["subtitle"]}
+                           height={this.height}/>
                       <BarElement
                           scale={this.scale}
                           max={this.max}

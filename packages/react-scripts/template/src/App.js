@@ -16,8 +16,8 @@ class App extends Component {
         <div>
         <h1>Bullet Graph</h1>
         <Graph width="960"
-               marginRight="20"
-               marginLeft="120"
+               marginRight="40"
+               marginLeft="140"
                height="35"
                data={graphData}
                targetTooltip="Target"
