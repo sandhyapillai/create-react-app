@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Graph from './Graph.jsx';
+import Graph from './components/Graph.jsx';
 import graphData from './graph.json';
 
 class App extends Component {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Graph.css';
+import '../Graph.css';
 
 
 class TickElement extends Component{
