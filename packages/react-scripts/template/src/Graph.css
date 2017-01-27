@@ -7,17 +7,17 @@
 	font-size:14px;
 }
 
-.bullet .bar.s0 { fill: #DCDCDC; }
-.bullet .bar.s1 { fill: #BABABA; }
-.bullet .bar.s2 { fill: #989898; }
+.bullet .bar.s0 { fill:hsl(0,0%,60%); }
+.bullet .bar.s1 { fill: hsl(0,0%,50%); }
+.bullet .bar.s2 { fill: hsl(0,0%,40%); }
+.bullet .bar.s3 { fill:hsl(0,0%,20%); }
+.bullet .bar.s4 { fill: hsl(0,0%,10%); }
+
 
 .bullet .bar.measure{
-	 fill:#000;
 	 -moz-animation:example 1s;
-	 animation-name: example;
-   animation-duration: 1s;
-	 -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-   -webkit-animation-duration: 1s;
+	 animation: example 1s;
+   -webkit-animation: example 1s; /* For Safari */
 
 }
 .bullet .title{
@@ -38,6 +38,5 @@
  font-size:12px;
 }
 .bullet .target{
-	stroke:#666;
 	stroke-width:3px;
 }

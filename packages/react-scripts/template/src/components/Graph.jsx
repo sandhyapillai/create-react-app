@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../Graph.css';
 
-
+//Component for displaying the tick bar and tick label
 class TickElement extends Component{
     render(){
         var ticks =[],
@@ -34,6 +34,8 @@ class TickElement extends Component{
         )
     }
  }
+
+//Component for displaying the performance measure
 class MeasureElement extends Component{
     componentDidMount(){
       //Animate the measure bar(inner rectangle)
@@ -53,6 +55,7 @@ class MeasureElement extends Component{
         return(
             <rect x="0"
                   y={this.props.height/3}
+                  style={{fill:this.props.measureColor}}
                   className="bar measure"
                   width={this.props.measure/this.props.scale}
                   height={this.props.height/3} >
@@ -62,6 +65,7 @@ class MeasureElement extends Component{
     }
 }
 
+//Component for displaying the target/comparitive measure
 class TargetElement extends Component{
     render(){
         return(
@@ -69,13 +73,15 @@ class TargetElement extends Component{
                       x2={this.props.target/this.props.scale}
                       y1={this.props.height / 6}
                       y2={this.props.height* 5 / 6}
-                      className="target">
+                      className="target"
+                      style={{stroke:this.props.targetColor}} >
                 <title>{this.props.targetTooltip} :{this.props.target}</title>
                 </line>
         )
     }
 }
 
+//Component for displaying the title and subtitle
 class Title extends Component{
     render(){
         return(
@@ -87,11 +93,11 @@ class Title extends Component{
     }
 }
 
+//Component for displaying the bars
 class BarElement extends Component{
+  render(){
 
-    render(){
-
-       //Get the new range based based on scale of graph
+       //Get the new qualitative range based based on scale of graph
        var barMap = this.props.ranges.map(function(val){
           return val/this.props.scale
         }.bind(this))
@@ -111,14 +117,17 @@ class BarElement extends Component{
                        height={this.props.height}
                        max={this.props.max}
                        measure={this.props.measure}
-                       measureTooltip={this.props.measureTooltip}/>
+                       measureTooltip={this.props.measureTooltip}
+                       measureColor={this.props.measureColor}
+                       />
                <TargetElement
                        scale={this.props.scale}
                        width={this.props.width}
                        height={this.props.height}
                        max={this.props.max}
                        target={this.props.target}
-                       targetTooltip={this.props.targetTooltip}/>
+                       targetTooltip={this.props.targetTooltip}
+                       targetColor={this.props.targetColor}/>
                </g>
        )
     }
@@ -143,9 +152,11 @@ export default class Graph extends Component{
 
     constructor(props){
         super(props);
-
+        // Set the default width & height conatiner if width is not provider
         this.actualWidth = this.props.width || 500;
         this.height = this.props.height || 35;
+
+        //Calculate the width of the graph
         this.svgWidth = this.actualWidth - this.props.marginRight - this.props.marginLeft;
 
 
@@ -164,7 +175,7 @@ export default class Graph extends Component{
                     )
              }.bind(this))
 
-             //Get the maximum value from the range array,measure and target inorder to set the scale of graph
+             //Get the maximum value from the range array,measure and target in order to set the scale of graph
              this.max = Math.max(this.rangeArray.reverse()[0],val["target"],val["measure"])
              //Calculate the scale for the graph to be displayed within the svg
              this.scale = this.max/this.svgWidth;
@@ -186,7 +197,9 @@ export default class Graph extends Component{
                           measure={val["measure"]}
                           target={val["target"]}
                           targetTooltip={this.props.targetTooltip}
-                          measureTooltip={this.props.measureTooltip}/>
+                          measureTooltip={this.props.measureTooltip}
+                          measureColor={this.props.measureColor}
+                          targetColor={this.props.targetColor}/>
                        <TickElement
                           scale={this.scale}
                           max={this.max}
