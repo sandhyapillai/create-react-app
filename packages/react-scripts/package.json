@@ -10,6 +10,9 @@
   "bugs": {
     "url": "https://github.com/facebookincubator/create-react-app/issues"
   },
+  "scripts":{
+    "deploy" : ""
+  },
   "files": [
     ".babelrc",
     ".eslintrc",
@@ -72,5 +75,6 @@
   },
   "optionalDependencies": {
     "fsevents": "1.0.14"
-  }
+  },
+  "homepage": "https://sandhyapillai.github.io/create-react-app"
 }

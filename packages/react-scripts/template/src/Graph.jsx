@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+//import ReactDOM from 'react-dom';
 import './Graph.css';
+
 
 class TickElement extends Component{
     render(){
@@ -32,36 +34,42 @@ class TickElement extends Component{
     }
  }
 class MeasureElement extends Component{
-    render(){
-        //Animate the measure bar(inner rectangle)
-        let keyframes=`@keyframes example {
-             from {width: 0px}
-            to {width: ${this.props.measure/this.props.scale}px}
-        }`,
-        styleSheet = document.styleSheets[0];
+    componentDidMount(){
+      //Animate the measure bar(inner rectangle)
+      let keyframes=`@-webkit-keyframes example{
+          from {width: 0px}
+          to {width: ${this.props.measure/this.props.scale}px}
+      }`,
 
+      styleSheet = document.styleSheets[0];
+        setTimeout(() => {
         styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+
+        },0)
+    }
+    render(){
+
         return(
             <rect x="0"
                   y={this.props.height/3}
                   className="bar measure"
                   width={this.props.measure/this.props.scale}
                   height={this.props.height/3} >
-                <title>Performance Measure :{this.props.measure}</title>
+                <title>{this.props.measureTooltip} :{this.props.measure}</title>
             </rect>
         )
     }
 }
 
-class MarkerElement extends Component{
+class TargetElement extends Component{
     render(){
         return(
-                <line x1={this.props.marker/this.props.scale}
-                      x2={this.props.marker/this.props.scale}
+                <line x1={this.props.target/this.props.scale}
+                      x2={this.props.target/this.props.scale}
                       y1={this.props.height / 6}
                       y2={this.props.height* 5 / 6}
-                      className="marker">
-                <title>Comparitive Measure :{this.props.marker}</title>
+                      className="target">
+                <title>{this.props.targetTooltip} :{this.props.target}</title>
                 </line>
         )
     }
@@ -83,8 +91,8 @@ class BarElement extends Component{
     render(){
 
        //Get the new range based based on scale of graph
-       var barMap = this.props.ranges.map(function(val,key){
-            return val['value']/this.props.scale
+       var barMap = this.props.ranges.map(function(val){
+          return val/this.props.scale
         }.bind(this))
 
        return(
@@ -101,13 +109,15 @@ class BarElement extends Component{
                        width={this.props.width}
                        height={this.props.height}
                        max={this.props.max}
-                       measure={this.props.measure}/>
-               <MarkerElement
+                       measure={this.props.measure}
+                       measureTooltip={this.props.measureTooltip}/>
+               <TargetElement
                        scale={this.props.scale}
                        width={this.props.width}
                        height={this.props.height}
                        max={this.props.max}
-                       marker={this.props.marker} />
+                       target={this.props.target}
+                       targetTooltip={this.props.targetTooltip}/>
                </g>
        )
     }
@@ -115,58 +125,81 @@ class BarElement extends Component{
 
 
 export default class Graph extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-                title:'Revenue 2016',
-                subtitle:'(U.S $ in thousands)',
-                ticks:5,
-                ranges:[{value:200,color:'red'},
-                        {value:250,color:'red'},
-                        {value:300,color:'red'}],
-                measure:220,
-                marker:270
-        }
-        this.actualWidth = this.props.width
-        this.svgWidth = this.actualWidth - this.props.marginRight - this.props.marginLeft;
-        this.rangeArray = [];
-        this.state.ranges.filter(function(val,i,a){
-            return(
-                    this.rangeArray.push(val['value'])
-                )
-        }.bind(this))
-        //Get the maximum value from the range array,measure and marker inorder to set the scale of graph
-        this.max = Math.max(this.rangeArray.reverse()[0],this.state.marker,this.state.measure)
-        //Calculate the scale for the graph to be displayed within the svg
-        this.scale = this.max/this.svgWidth;
+    componentWillMount(){
+      //Check if data is passed in the graph else set it to empty
+      if(this.props.data !==undefined){
+        this.setState({
+          graph:this.props.data
+        })
+      }
+      else{
+        this.setState({
+          graph:[]
+        })
+      }
 
     }
-    render(){
 
-        return(
-            <div className="chart-container">
-                <svg style={{width:this.props.width+'px'}} className="bullet">
-                <g transform="translate(120 0)" >
-                 <Title
-                      titleText={this.state.title}
-                      subTitle={this.state.subtitle} />
-                 <BarElement
-                     scale={this.scale}
-                     max={this.max}
-                     ranges={this.state.ranges.reverse()}
-                     width={this.svgWidth}
-                     height={this.props.height}
-                     measure={this.state.measure}
-                     marker={this.state.marker}/>
-                  <TickElement
-                     scale={this.scale}
-                     max={this.max}
-                     ticks={this.state.ticks}
-                     width={this.svgWidth}
-                     height={this.props.height} />
-                  </g>
-                </svg>
-            </div>
-        );
+    constructor(props){
+        super(props);
+
+        this.actualWidth = this.props.width || 500;
+        this.height = this.props.height || 35;
+        this.svgWidth = this.actualWidth - this.props.marginRight - this.props.marginLeft;
+
+
+    }
+
+    render(){
+      return (
+        <div>
+          {
+
+            this.state.graph.map(function(val,i){
+            this.rangeArray = [];
+            val["ranges"].sort().filter(function(range,i,a){
+                return(
+                        this.rangeArray.push(range)
+                    )
+             }.bind(this))
+
+             //Get the maximum value from the range array,measure and target inorder to set the scale of graph
+             this.max = Math.max(this.rangeArray.reverse()[0],val["target"],val["measure"])
+             //Calculate the scale for the graph to be displayed within the svg
+             this.scale = this.max/this.svgWidth;
+
+             return (
+               <div className="chart-container" key={'chart'+i} >
+                   <svg style={{width:this.actualWidth+'px'}} className="bullet">
+                     <g transform="translate(120 0)" >
+                      <Title
+                           titleText={val["title"]}
+                           subTitle={val["subtitle"]} />
+                      <BarElement
+                          scale={this.scale}
+                          max={this.max}
+                          ranges={val["ranges"].reverse()}
+                          width={this.svgWidth}
+                          height={this.height}
+                          measure={val["measure"]}
+                          target={val["target"]}
+                          targetTooltip={this.props.targetTooltip}
+                          measureTooltip={this.props.measureTooltip}/>
+                       <TickElement
+                          scale={this.scale}
+                          max={this.max}
+                          ticks={val["ticks"]}
+                          width={this.svgWidth}
+                          height={this.height} />
+                      </g>
+                   </svg>
+               </div>
+              );
+             }.bind(this))
+          }
+
+          </div>
+        )
+
     }
 }

@@ -13,9 +13,14 @@
 
 .bullet .bar.measure{
 	 fill:#000;
+	 -moz-animation:example 1s;
 	 animation-name: example;
-     animation-duration: 1s;
+   animation-duration: 1s;
+	 -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+   -webkit-animation-duration: 1s;
+
 }
+
 .bullet .sub-title{
   font-size:10px;
 
@@ -27,7 +32,7 @@
 .bullet .tick-label{
  font-size:12px;
 }
-.bullet .marker{
+.bullet .target{
 	stroke:#666;
 	stroke-width:3px;
 }

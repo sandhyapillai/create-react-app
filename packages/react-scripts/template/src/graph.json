@@ -1,0 +1,24 @@
+[{
+"title":"Revenue 2016",
+"subtitle":"(U.S $ in thousands)",
+"ticks":5,
+"ranges":[200,300,250],
+"measure":220,
+"target":270
+},
+{
+  "title":"Revenue 2015",
+  "subtitle":"(U.S $ in thousands)",
+  "ticks":5,
+  "ranges":[200,250,300],
+  "measure":220,
+  "target":270
+  },
+{
+  "title":"Revenue 2014",
+  "subtitle":"(U.S $ in thousands)",
+  "ticks":5,
+  "ranges":[30,25,20],
+  "measure":22,
+  "target":27
+  }]

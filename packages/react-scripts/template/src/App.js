@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import Graph from './Graph.jsx';
+import graphData from './graph.json';
+
 class App extends Component {
   render() {
     return (
@@ -12,7 +15,14 @@ class App extends Component {
         </div>
         <div>
         <h1>Bullet Graph</h1>
-        <Graph width="960" marginRight="20" marginLeft="120" height="35" color="CCC"/>
+        <Graph width="960"
+               marginRight="20"
+               marginLeft="120"
+               height="35"
+               data={graphData}
+               targetTooltip="Target"
+               measureTooltip="Performance Measure"
+               color="#CCC"/>
         </div>
       </div>
     );
