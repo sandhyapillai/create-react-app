@@ -24,6 +24,15 @@ class App extends Component {
                measureTooltip="Performance Measure"
                measureColor="#000"
                targetColor="#CCC"/>
+         <Graph width="960"
+                marginRight="40"
+                marginLeft="140"
+                height="35"
+                data={graphData}
+                targetTooltip="Target"
+                measureTooltip="Performance Measure"
+                measureColor="#476FBA"
+                targetColor="#000"/>
         </div>
       </div>
     );
