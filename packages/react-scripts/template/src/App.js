@@ -33,6 +33,7 @@ class App extends Component {
                 measureTooltip="Performance Measure"
                 measureColor="#476FBA"
                 targetColor="#000"/>
+                
         </div>
       </div>
     );
